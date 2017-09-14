@@ -1,4 +1,4 @@
-package uk.co.philharper.mysqlutils.service;
+package uk.co.philharper.mysqlutils;
 
 import org.junit.Test;
 

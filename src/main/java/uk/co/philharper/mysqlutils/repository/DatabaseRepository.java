@@ -1,7 +1,10 @@
 package uk.co.philharper.mysqlutils.repository;
 
+import uk.co.philharper.mysqlutils.connector.Connector;
+import uk.co.philharper.mysqlutils.queries.Query;
+
 public interface DatabaseRepository {
 
-    void runQuery(int queryCount, String query, Object[] args);
+    void runQuery(Connector connector, Query query);
 
 }

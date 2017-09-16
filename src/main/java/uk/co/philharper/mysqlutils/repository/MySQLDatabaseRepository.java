@@ -11,10 +11,7 @@ public class MySQLDatabaseRepository implements DatabaseRepository {
     Statement statement;
     PreparedStatement preparedStatement = null;
 
-    @Override
-    public void runQuery(Connector connector, Query query) {
-        int i = 1;
-
+    public MySQLDatabaseRepository(Connector connector) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -26,18 +23,19 @@ public class MySQLDatabaseRepository implements DatabaseRepository {
 
         try {
             conn = DriverManager.getConnection("jdbc:mysql://" + connector.getUrl(), connector.getUsername(), connector.getPassword());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return;
+        }
+    }
 
+    @Override
+    public void runQuery(Query query) {
+        try {
             statement = conn.createStatement();
             preparedStatement = conn.prepareStatement(query.getQuery());
 
-            for (Object obj : query.getParams()) {
-                if (obj instanceof String) {
-                    preparedStatement.setString(i, (String) obj);
-                } else if (obj instanceof Integer) {
-                    preparedStatement.setInt(i, (int) obj);
-                }
-                i++;
-            }
+            setArguments(query);
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -45,6 +43,19 @@ public class MySQLDatabaseRepository implements DatabaseRepository {
             return;
         }
 
+    }
+
+    private void setArguments(Query query) throws SQLException {
+        int i = 1;
+
+        for (Object obj : query.getParams()) {
+            if (obj instanceof String) {
+                preparedStatement.setString(i, (String) obj);
+            } else if (obj instanceof Integer) {
+                preparedStatement.setInt(i, (int) obj);
+            }
+            i++;
+        }
     }
 
 }

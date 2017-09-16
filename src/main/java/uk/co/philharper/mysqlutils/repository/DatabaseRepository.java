@@ -5,6 +5,6 @@ import uk.co.philharper.mysqlutils.queries.Query;
 
 public interface DatabaseRepository {
 
-    void runQuery(Connector connector, Query query);
+    void runQuery(Query query);
 
 }

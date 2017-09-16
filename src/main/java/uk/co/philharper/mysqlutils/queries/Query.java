@@ -6,12 +6,14 @@ public class Query {
     Object[] params;
     int count;
     int threadLimit;
+    int timeLimit;
 
-    public Query(String query, Object[] params, int count, int threadLimit) {
+    public Query(String query, Object[] params, int count, int threadLimit, int timeLimit) {
         this.query = query;
         this.params = params;
         this.count = count;
         this.threadLimit = threadLimit;
+        this.timeLimit = timeLimit;
     }
 
     public String getQuery() {
@@ -28,5 +30,9 @@ public class Query {
 
     public int getThreadLimit() {
         return threadLimit;
+    }
+
+    public int getTimeLimit() {
+        return timeLimit;
     }
 }

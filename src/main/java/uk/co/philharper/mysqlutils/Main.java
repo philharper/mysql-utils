@@ -11,8 +11,8 @@ public class Main {
         Object[] objectArray = new Object[1];
         objectArray[0] = "HELLO";
 
-        mySQLDataLoader.setQuery(new Query("INSERT INTO test_schema.test_table (name) VALUES (?)", objectArray, 2, 1));
+        mySQLDataLoader.setQuery(new Query("INSERT INTO test_schema.test_table (name) VALUES (?)", objectArray, 50, 1, 1));
         mySQLDataLoader.setConnector(new Connector("localhost:3306/test_schema", "root", "root"));
-        mySQLDataLoader.runQuery();
+        mySQLDataLoader.insertMultipleRecords();
     }
 }
